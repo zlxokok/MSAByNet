@@ -1,5 +1,4 @@
-## The codes for the work "Multiscale Subtraction Attention Network Based on Bayesian Loss for
-Medical Image Segmentation
+## The codes for the work "Multiscale Subtraction Attention Network Based on Bayesian Loss for Medical Image Segmentation
  
  
 ### Prepare data
