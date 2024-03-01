@@ -39,6 +39,18 @@ parser.add_argument('--device', default='cuda', type=str, )
 parser.add_argument('--checkpoint', type=str, default='BUSI/', )
 parser.add_argument('--save_name', type=str, default= 'MSAByNet', )
 parser.add_argument('--devicenum', default='0', type=str, )
+parser.add_argument('--Bayes_weight', default=50, type=float)
+parser.add_argument("--phi_rho", default=1e-6, type=float)
+parser.add_argument("--gamma_rho", default=2, type=float)
+# Image boundary upsilon
+parser.add_argument("--phi_upsilon", default=1e-8, type=float)
+parser.add_argument("--gamma_upsilon", default=2, type=float)
+# Seg boundary omega
+parser.add_argument("--phi_omega", default=1e-4, type=float)
+parser.add_argument("--gamma_omega", default=2, type=float)
+parser.add_argument("--alpha_pi", default=2, type=float)
+parser.add_argument("--beta_pi", default=2, type=float)
+parser.add_argument("--sigma_0", default=1, type=float)
 
 args = parser.parse_args()
 os.environ['CUDA_VISIBLE_DEVICES']=args.devicenum
@@ -94,7 +106,7 @@ def main():
     with tqdm(total=epochs, ncols=60) as t:
         for epoch in range(epochs):
             epoch_loss, epoch_iou, epoch_val_loss, epoch_val_iou = \
-                fit(epoch,epochs,model,train_dl,val_dl,device,criterion,optimizer,CosineLR)
+                fit(epoch,epochs,model,train_dl,val_dl,device,criterion,optimizer,CosineLR,args)
 
             f = open(model_savedir + 'log'+'.txt', "a")
             f.write('epoch' + str(float(epoch)) +
